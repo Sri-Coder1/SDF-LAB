@@ -376,30 +376,28 @@
   });
 </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Trip Protection Plan modal logic
-    const tripModal = document.getElementById('trip-modal');
-    const closeTrip = document.getElementById('close-trip');
-    // Find the "View Details" link in the Booking Summary
-    const viewTrip = Array.from(document.querySelectorAll('a')).find(link =>
-      link.textContent.trim().toUpperCase().includes('VIEW DETAILS')
-    );
-    if (viewTrip && tripModal && closeTrip) {
-      viewTrip.addEventListener('click', function(e) {
-        e.preventDefault();
-        tripModal.classList.remove('hidden');
-      });
-      closeTrip.addEventListener('click', function() {
+document.addEventListener('DOMContentLoaded', function() {
+  // Trip Protection Plan modal logic
+  const tripModal = document.getElementById('trip-modal');
+  const closeTrip = document.getElementById('close-trip');
+  // Find the "View Details" link in the Booking Summary
+  const viewTrip = Array.from(document.querySelectorAll('a')).find(link =>
+    link.textContent.trim().toUpperCase().includes('VIEW DETAILS')
+  );
+  if (viewTrip && tripModal && closeTrip) {
+    viewTrip.addEventListener('click', function(e) {
+      e.preventDefault();
+      tripModal.classList.remove('hidden');
+    });
+    closeTrip.addEventListener('click', function() {
+      tripModal.classList.add('hidden');
+    });
+    tripModal.addEventListener('click', function(e) {
+      if (e.target === tripModal) {
         tripModal.classList.add('hidden');
-      });
-      tripModal.addEventListener('click', function(e) {
-        if (e.target === tripModal) {
-          tripModal.classList.add('hidden');
-        }
-      });
-    }
-  });
-</script>
+      }
+    });
+  }
+});
 </body>
 </html>
