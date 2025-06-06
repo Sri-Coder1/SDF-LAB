@@ -312,5 +312,98 @@
     </div>
   </div>
 </div>
+
+<!-- Trip Protection Plan Modal -->
+<div id="trip-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+  <div class="bg-gradient-to-b from-indigo-800 to-purple-700 text-white rounded-xl shadow-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+    <button id="close-trip" class="absolute top-2 right-4 text-2xl font-bold text-white hover:text-indigo-200">&times;</button>
+    <h2 class="text-2xl font-bold mb-4 text-white">Trip Protection Plan for Vehicle Rental</h2>
+    <div class="space-y-4 text-sm">
+      <ol class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Rental Car Insurance</strong><br>
+          Ensure you’re covered in case of damage, theft, or liability.<br>
+          <u>Coverage Options:</u>
+          <ul class="list-disc ml-6">
+            <li><strong>Collision Damage Waiver (CDW) / Loss Damage Waiver (LDW):</strong> Covers damage to the rental vehicle in case of accident or theft.</li>
+            <li><strong>Supplemental Liability Insurance (SLI):</strong> Protects against third-party injury and property damage claims.</li>
+            <li><strong>Personal Accident Insurance (PAI):</strong> Covers medical expenses for you and passengers.</li>
+            <li><strong>Personal Effects Coverage (PEC):</strong> Covers theft of personal belongings from the rental vehicle.</li>
+          </ul>
+          <span class="block mt-2">✅ <em>Tip: Check your credit card benefits or personal auto insurance to avoid double coverage.</em></span>
+        </li>
+        <li>
+          <strong>Trip Interruption/Cancellation Protection</strong><br>
+          Covers you in case your trip is canceled or interrupted due to:<br>
+          <ul class="list-disc ml-6">
+            <li>Illness or injury</li>
+            <li>Flight cancellations</li>
+            <li>Natural disasters</li>
+            <li>Family emergencies</li>
+          </ul>
+          <span class="block mt-2">Reimburses for:</span>
+          <ul class="list-disc ml-6">
+            <li>Non-refundable rental charges</li>
+            <li>Unused rental days</li>
+            <li>Change fees</li>
+          </ul>
+        </li>
+        <li>
+          <strong>24/7 Roadside Assistance</strong><br>
+          Ensure you’re not stranded due to unexpected issues:<br>
+          <ul class="list-disc ml-6">
+            <li>Flat tires</li>
+            <li>Dead battery</li>
+            <li>Lockout service</li>
+            <li>Towing</li>
+            <li>Fuel delivery</li>
+          </ul>
+          <span class="block mt-2">✅ <em>Often available as an add-on from rental agencies or third-party insurers.</em></span>
+        </li>
+        <li>
+          <strong>Travel Delay / Missed Connection Coverage</strong><br>
+          If travel disruptions affect your rental period:<br>
+          <ul class="list-disc ml-6">
+            <li>Covers hotel, meals, and transportation during delays</li>
+            <li>Reimbursement for missed rental time</li>
+          </ul>
+        </li>
+        <li>
+          <strong>International Travel Considerations (if applicable)</strong><br>
+          <ul class="list-disc ml-6">
+            <li>Check if your plan covers rentals outside your home country</li>
+            <li>Ensure compliance with local driving laws</li>
+            <li>Consider international insurance add-ons if traveling abroad</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Trip Protection Plan modal logic
+    const tripModal = document.getElementById('trip-modal');
+    const closeTrip = document.getElementById('close-trip');
+    const viewTrip = document.querySelector('a.underline.text-indigo-600');
+    if (viewTrip && tripModal && closeTrip) {
+      viewTrip.addEventListener('click', function(e) {
+        if (viewTrip.textContent.trim().toUpperCase().includes('VIEW DETAILS')) {
+          e.preventDefault();
+          tripModal.classList.remove('hidden');
+        }
+      });
+      closeTrip.addEventListener('click', function() {
+        tripModal.classList.add('hidden');
+      });
+      tripModal.addEventListener('click', function(e) {
+        if (e.target === tripModal) {
+          tripModal.classList.add('hidden');
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
