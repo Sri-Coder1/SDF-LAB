@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rentora - Tata Winger</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1);
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 font-sans text-white">
+
+  <!-- Navbar -->
+  <div class="flex justify-between items-center bg-gradient-to-r from-indigo-800 to-purple-700 p-4 rounded-xl shadow-lg mb-6">
+    <div class="flex items-center space-x-3">
+      <!-- Navbar logo -->
+      <img src="../assets/Rentora logo.png" alt="Rentora Logo" class="h-10 w-10 rounded-full shadow" />
+      <span class="text-2xl font-bold">Rentora</span>
+    </div>
+    <div class="space-x-6">
+      <a href="../about.html" class="hover:underline">About Us</a>
+      <a href="../contact.html" class="hover:underline">Contact Us</a>
+      <a href="../loginpage.html" class="bg-white text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition">Login</a>
+      <a href="../Signup.html" class="bg-white text-gray-800 px-4 py-2 rounded-full font-semibold hover:bg-gray-100 transition">Sign up</a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Left Section -->
+    <div class="lg:col-span-2 bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow-xl space-y-6">
+      
+      <!-- Car Header -->
+      <div class="flex justify-between items-center text-white">
+        <h2 id="car-name" class="text-3xl font-bold">Tata Winger</h2>
+        <span id="car-segment" class="bg-white text-indigo-800 px-3 py-1 rounded-full font-semibold">MINI VAN</span>
+      </div>
+
+      <!-- Car Info -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- Car Image -->
+        <img id="car-image" src="../assets/Car6.jpg" alt="Tata Winger Interior" class="rounded-xl shadow-lg w-full h-64 object-cover"/>
+
+        <!-- Booking Info -->
+        <div class="space-y-4 text-sm">
+          <div class="bg-white text-gray-800 p-4 rounded-xl">
+            <p class="font-semibold">📍 Location: <span id="location-text">Bangalore</span></p>
+            <div class="mt-4 space-y-2">
+              <p id="pickup-text" class="font-semibold">📅 Pickup: 2nd June 2023, 10:00 AM</p>
+              <p id="return-text" class="font-semibold">📅 Return: 3rd June 2023, 10:00 AM</p>
+              <p id="duration-text" class="font-semibold">⏳ Duration: 1 day</p>
+            </div>
+          </div>
+
+          <div class="bg-white text-gray-800 p-4 rounded-xl">
+            <h3 class="font-bold mb-2">Package Info</h3>
+            <p>Free kms/day: <strong id="free-kms"> 600kms</strong></p>
+            <p>Total kms: <strong id="total-kms">600 kms</strong></p>
+            <p>Extra km charges: <strong id="extra-km-charge">₹30/km</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Car Specs -->
+      <div class="bg-white text-gray-800 p-4 rounded-xl space-y-4">
+        <h3 class="text-xl font-bold">Car Details</h3>
+        <div id="car-specs" class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center text-sm font-semibold">
+          <div class="bg-indigo-100 text-indigo-800 rounded p-2">Manual</div>
+          <div class="bg-indigo-100 text-indigo-800 rounded p-2">Diesel</div>
+          <div class="bg-indigo-100 text-indigo-800 rounded p-2">4 Baggage</div>
+          <div class="bg-indigo-100 text-indigo-800 rounded p-2">9 Seater</div>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4 mt-4 text-sm">
+          <div><span class="font-semibold">Insurance:</span> Included</div>
+          <div><span class="font-semibold">Roadside Assistance:</span> Included</div>
+          <div><span class="font-semibold">Fuel:</span> Not Included</div>
+        </div>
+      </div>
+
+      <!-- Important Info -->
+      <div class="bg-gradient-to-b from-indigo-600 to-purple-700 text-white p-4 rounded-xl text-sm">
+        <h3 class="text-lg font-bold mb-2">Important</h3>
+        <ul class="list-disc list-inside space-y-1">
+          <li>Valid driving license required</li>
+          <li>Security deposit applicable</li>
+          <li>Minimum permissible age for renting is 21 and max 30 years.</li>
+          <li><a href="#" class="underline text-blue-200">KNOW MORE...</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="bg-gradient-to-b from-blue-100 to-indigo-200 text-gray-800 p-6 rounded-xl shadow-xl space-y-4">
+      <h3 class="text-2xl font-bold text-indigo-900">Booking Summary</h3>
+
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span>Rental Charges</span><span id="rental-charges">₹2,999</span></div>
+        <div class="flex justify-between"><span>GST (15%)</span><span id="gst-charges">₹450</span></div>
+        <div class="flex justify-between"><span>Refundable Deposit</span><span id="deposit">₹3,000</span></div>
+      </div>
+
+      <div class="mt-4 text-sm">
+        <label class="block"><input type="checkbox" class="mr-2"> Luggage carrier (Subject to availability)</label>
+        <label class="block mt-2"><input type="checkbox" class="mr-2"> Trip Protection Plan <a href="#" class="underline text-indigo-600">View Details</a></label>
+      </div>
+
+      <div class="mt-4 text-sm space-y-2">
+        <label for="promo" class="font-semibold">Promo Code</label>
+        <div class="flex gap-2">
+          <input id="promo" type="text" placeholder="Enter promo code" class="flex-1 px-3 py-2 rounded border border-purple-300 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          <button class="bg-indigo-600 text-white px-4 rounded hover:bg-indigo-700">Apply</button>
+        </div>
+      </div>
+
+      <div class="flex justify-between font-bold text-lg mt-4 border-t pt-2">
+        <span>Total Amount</span>
+        <span id="total-amount">₹6,449</span>
+      </div>
+
+      <button id="proceed-btn" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
+        Proceed to Payment
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal with purple gradient and white text -->
+<div id="terms-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 hidden">
+  <div class="bg-gradient-to-b from-indigo-800 to-purple-700 text-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 relative">
+    <button id="close-terms" class="absolute top-2 right-4 text-2xl font-bold text-white hover:text-indigo-200">&times;</button>
+    <h2 class="text-2xl font-bold mb-4 text-white">Terms &amp; Conditions</h2>
+    <div class="space-y-4 text-sm">
+      <ol class="list-decimal list-inside space-y-2">
+        <li>
+          <strong>Eligibility</strong><br>
+          The renter must be at least 21 years old and not older than 30 years.<br>
+          A valid driving license (original and photocopy) must be presented at the time of vehicle pickup.<br>
+          The driving license must be valid throughout the rental period.
+        </li>
+        <li>
+          <strong>Booking & Payment</strong><br>
+          A security deposit of ₹3,000 is mandatory and will be refunded after vehicle return (subject to inspection).<br>
+          Full payment (including rental charges and applicable taxes) must be made before vehicle pickup.<br>
+          Cancellations made 24 hours before pickup are eligible for a full refund, after which no refund is provided.
+        </li>
+        <li>
+          <strong>Usage Policy</strong><br>
+          Vehicles must be used only within permitted regions (usually within the country unless otherwise allowed).<br>
+          The renter is not allowed to sub-rent, race, or use the vehicle for commercial purposes without prior permission.<br>
+          Usage beyond free kilometers incurs ₹10/km extra.
+        </li>
+        <li>
+          <strong>Damage, Theft, or Accident</strong><br>
+          In case of any accident, theft, or damage, the renter must inform Rentora immediately.<br>
+          If damage is caused by the renter’s negligence, repair charges will be deducted from the deposit.<br>
+          Insurance covers only basic damages; renters are liable for excess charges.
+        </li>
+        <li>
+          <strong>Fuel & Maintenance</strong><br>
+          Fuel is not included in the rental price. The vehicle must be returned with the same fuel level as at the time of pickup.<br>
+          Regular maintenance is handled by Rentora; renters must not tamper with the engine or components.
+        </li>
+        <li>
+          <strong>Late Return</strong><br>
+          A grace period of 30 minutes is allowed beyond the scheduled return time.<br>
+          After that, late returns are charged per hour or per day, depending on the delay.<br>
+          Repeated late returns may lead to suspension of rental privileges.
+        </li>
+        <li>
+          <strong>Documents Required</strong><br>
+          Government-issued ID proof (e.g., Aadhaar, Passport)<br>
+          Valid driving license (original and copy)<br>
+          Any additional documents if requested for verification
+        </li>
+        <li>
+          <strong>Prohibited Activities</strong><br>
+          Smoking, drinking alcohol, or carrying illegal substances in the vehicle.<br>
+          Overloading passengers or luggage beyond the vehicle's capacity.<br>
+          Driving under the influence of alcohol or drugs.
+        </li>
+        <li>
+          <strong>Company Rights</strong><br>
+          Rentora reserves the right to decline rentals without providing reasons.<br>
+          The company can terminate the rental agreement if the vehicle is misused or policies are violated.
+        </li>
+        <li>
+          <strong>Jurisdiction</strong><br>
+          Any legal disputes will be subject to the jurisdiction of courts located in [Your City, e.g., Bangalore], India.
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Extract all parameters with defaults
+      const location = urlParams.get('location') || 'Bangalore';
+      const pickup = urlParams.get('pickup') || new Date().toISOString().slice(0, 16);
+      const returnDate = urlParams.get('return') || new Date(Date.now() + 86400000).toISOString().slice(0, 16);
+      
+      // Car details
+      const carName = urlParams.get('name') || 'Tata Winger';
+      const carImage = urlParams.get('image') || '../assets/Car6.jpg';
+      const segment = urlParams.get('segment') || 'MINI VAN';
+      const transmission = urlParams.get('transmission') || 'Manual';
+      const fuel = urlParams.get('fuel') || 'Diesel';
+      const baggage = urlParams.get('baggage') || '4';
+      const seater = urlParams.get('seater') || '9';
+      const priceStr = urlParams.get('price') || '5500';
+      const prices = priceStr.split(',').map(Number);
+
+      // Calculate rental period
+      const pickupDate = new Date(pickup);
+      const returnDateObj = new Date(returnDate);
+      const timeDiff = returnDateObj - pickupDate;
+      const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+      const rentalDays = daysDiff > 0 ? daysDiff : 1;
+
+      // Calculate pricing (base rental charge per day * number of days)
+      const selectedPackage = 0;
+      const dailyPrice = prices[selectedPackage] || 5500;
+      const rentalCharges = rentalDays * dailyPrice;
+      const gst = Math.round(rentalCharges * 0.15);
+      const deposit = 3000;
+      const total = rentalCharges + gst + deposit;
+
+      // Calculate kms
+      const freeKmsPerDay = 120;
+      const totalFreeKms = freeKmsPerDay * rentalDays;
+
+      // Format dates for display
+      const formatDate = (date) => {
+        return date.toLocaleString('en-IN', {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        });
+      };
+
+      // Update booking info
+      document.getElementById('location-text').textContent = location;
+      document.getElementById('pickup-text').textContent = `📅 Pickup: ${formatDate(pickupDate)}`;
+      document.getElementById('return-text').textContent = `📅 Return: ${formatDate(returnDateObj)}`;
+      document.getElementById('duration-text').textContent = `⏳ Duration: ${rentalDays} day(s)`;
+
+      // Update car details
+      document.getElementById('car-name').textContent = carName;
+      document.getElementById('car-segment').textContent = segment;
+      document.getElementById('car-image').src = '../assets/Car6.jpg';
+      
+      // Update car specs
+      document.getElementById('car-specs').innerHTML = `
+        <div class="bg-indigo-100 text-indigo-800 rounded p-2">${transmission}</div>
+        <div class="bg-indigo-100 text-indigo-800 rounded p-2">${fuel}</div>
+        <div class="bg-indigo-100 text-indigo-800 rounded p-2">${baggage} Baggage</div>
+        <div class="bg-indigo-100 text-indigo-800 rounded p-2">${seater} Seater</div>
+      `;
+
+      // Update package info
+      document.getElementById('free-kms').textContent = `${freeKmsPerDay} kms`;
+      document.getElementById('total-kms').textContent = `${totalFreeKms} kms`;
+      document.getElementById('extra-km-charge').textContent = '₹10/km';
+
+      // Update pricing
+      document.getElementById('rental-charges').textContent = `₹${rentalCharges.toLocaleString('en-IN')}`;
+      document.getElementById('gst-charges').textContent = `₹${gst.toLocaleString('en-IN')}`;
+      document.getElementById('deposit').textContent = `₹${deposit.toLocaleString('en-IN')}`;
+      document.getElementById('total-amount').textContent = `₹${total.toLocaleString('en-IN')}`;
+      
+      // Add click event to proceed button
+      document.getElementById('proceed-btn').addEventListener('click', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const paymentUrl = '../payment.html?' + urlParams.toString();
+        window.location.href = paymentUrl;
+      });
+
+      // Terms and Conditions modal
+      const termsModal = document.getElementById('terms-modal');
+      const closeTermsBtn = document.getElementById('close-terms');
+
+      // Open terms modal on "KNOW MORE..." link click
+      document.querySelector('a[href="#"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        termsModal.classList.remove('hidden');
+      });
+
+      // Close terms modal
+      closeTermsBtn.addEventListener('click', function() {
+        termsModal.classList.add('hidden');
+      });
+
+      // Close terms modal on outside click
+      window.addEventListener('click', function(e) {
+        if (e.target === termsModal) {
+          termsModal.classList.add('hidden');
+        }
+      });
+    });
+  </script>
+
+  <script>
+  // Show modal when "KNOW MORE..." is clicked
+  document.addEventListener('DOMContentLoaded', function() {
+    const knowMoreLinks = document.querySelectorAll('a[href="#"][class*="know-more"], a[href="#"]:contains("KNOW MORE")');
+    const modal = document.getElementById('terms-modal');
+    const closeBtn = document.getElementById('close-terms');
+
+    // Fallback for all "KNOW MORE..." links
+    document.querySelectorAll('a').forEach(link => {
+      if (link.textContent.trim().toUpperCase().includes('KNOW MORE')) {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          modal.classList.remove('hidden');
+        });
+      }
+    });
+
+    closeBtn.addEventListener('click', function() {
+      modal.classList.add('hidden');
+    });
+
+    // Optional: Close modal when clicking outside the box
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+  });
+</script>
+</body>
+</html>
