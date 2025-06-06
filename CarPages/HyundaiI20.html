@@ -383,7 +383,7 @@
     const closeTrip = document.getElementById('close-trip');
     // Find the "View Details" link in the Booking Summary
     const viewTrip = Array.from(document.querySelectorAll('a')).find(link =>
-      link.textContent.trim().toUpperCase() === 'VIEW DETAILS'
+      link.textContent.trim().toUpperCase().includes('VIEW DETAILS')
     );
     if (viewTrip && tripModal && closeTrip) {
       viewTrip.addEventListener('click', function(e) {
