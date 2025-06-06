@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login | Rentora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1); /* Sky to Galaxy gradient */
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center font-sans text-white">
+
+  <!-- Login Box -->
+<div class="bg-gradient-to-b from-indigo-700 to-purple-800 p-8 rounded-xl shadow-2xl w-full max-w-md">
+  <div class="flex items-center justify-center mb-6">
+    <img src="assets/Rentora logo.png" alt="Rentora Logo" class="h-10 w-10 rounded-full shadow mr-2" />
+    <a href="index.html" class="text-3xl font-bold text-white hover:underline focus:outline-none">Rentora</a>
+  </div>
+  <p class="text-center text-white text-lg mb-6">Let’s hit the road</p>
+    <form action="" method="POST" class="space-y-5">
+      <div>
+        <label for="username-email" class="block font-semibold mb-1">Email</label>
+        <input type="text" id="username-email" required class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div>
+        <label for="password" class="block font-semibold mb-1">Password</label>
+        <input type="password" id="password" required class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <input type="submit" id="continue" value="Continue" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition">
+    </form>
+
+    <p class="mt-6 text-center text-sm text-white">Don't have an account? <a href="Signup.html" class="underline font-semibold hover:text-indigo-200">Sign up</a></p>
+  </div>
+</div>
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('This is a static demo. No real login.');
+  // Optionally redirect to Dashboard.html
+  window.location.href = 'Dashboard.html';
+});
+</script>
+</body>
+</html>

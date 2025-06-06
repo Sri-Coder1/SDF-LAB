@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rentora - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1);
+    }
+    .price-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 8px;
+      border-radius: 5px;
+      background: #d1d5db;
+      outline: none;
+    }
+    .price-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #4f46e5;
+      cursor: pointer;
+    }
+    .price-slider::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #4f46e5;
+      cursor: pointer;
+    }
+    .rating-option {
+      display: flex;
+      align-items: center;
+      padding: 4px 0;
+      cursor: pointer;
+    }
+    .rating-option input[type="radio"] {
+      margin-right: 8px;
+    }
+    .rating-stars {
+      color: #fbbf24;
+      margin-right: 8px;
+    }
+    .rating-label {
+      color: white;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 font-sans text-white">
+  <div class="max-w-7xl mx-auto">
+
+    <!-- Header -->
+    <div class="flex flex-col bg-gradient-to-r from-indigo-800 to-purple-700 p-4 rounded-xl shadow-lg mb-6 text-white">
+      <div class="flex justify-between items-center mb-4">
+        <div class="flex items-center space-x-3">
+          <!-- Header Logo -->
+          <img src="assets/Rentora logo.png" alt="Rentora Logo" class="h-10 w-10 rounded-full shadow" />
+          <span class="text-2xl font-bold">Rentora</span>
+        </div>
+        <!-- Profile and Auth Buttons -->
+        <div class="flex justify-end">
+          <a href="loginpage.html" class="flex items-center space-x-2 border border-gray-300 text-gray-100 px-4 py-2 rounded-full hover:bg-white hover:text-gray-800 transition mr-2">
+            <!-- Login Icon (Heroicons outline login) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
+            </svg>
+            <span>Login</span>
+          </a>
+          <a href="Signup.html" class="flex items-center space-x-2 border border-gray-300 text-gray-100 px-4 py-2 rounded-full hover:bg-white hover:text-gray-800 transition">
+            <!-- Signup Icon (Heroicons outline user-add) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-4 4a4 4 0 100-8 4 4 0 000 8zm0 2c-2.21 0-4 1.79-4 4h8c0-2.21-1.79-4-4-4z" />
+            </svg>
+            <span>Sign up</span>
+          </a>
+        </div>
+      </div>
+      
+      <!-- Search Bar -->
+      <div class="bg-white rounded-lg p-4 shadow-md">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-1" for="location">
+              Location
+            </label>
+            <input class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline" 
+                   id="location" type="text" placeholder="Enter location">
+          </div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-1" for="pickup-date">
+              Pickup Date & Time
+            </label>
+            <input class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline" 
+                   id="pickup-date" type="datetime-local">
+          </div>
+          <div>
+            <label class="block text-gray-700 text-sm font-bold mb-1" for="return-date">
+              Return Date & Time
+            </label>
+            <input class="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:shadow-outline" 
+                   id="return-date" type="datetime-local">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-6">
+      <!-- Sidebar Filters -->
+      <aside class="w-full lg:w-1/4 bg-gradient-to-b from-indigo-700 to-purple-800 p-5 rounded-xl shadow-lg">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-bold">Filter</h2>
+          <button id="clear-filters" class="text-sm bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 transition">Clear Filters</button>
+        </div>
+        
+        <!-- Price Range Filter -->
+        <div class="mb-6">
+          <p class="font-semibold mb-2">Price Range (per day)</p>
+          <div class="flex justify-between mb-2">
+            <span id="minPriceValue" class="text-sm">₹1000</span>
+            <span id="maxPriceValue" class="text-sm">₹10000</span>
+          </div>
+          <input type="range" min="1000" max="10000" value="1000" class="price-slider" id="minPriceSlider">
+          <input type="range" min="1000" max="10000" value="10000" class="price-slider mt-2" id="maxPriceSlider">
+          <div class="flex justify-between mt-2">
+            <span class="text-xs">Max: ₹<span id="currentMaxPrice">10000</span></span>
+            <span class="text-xs">Min: ₹<span id="currentMinPrice">1000</span></span>
+          </div>
+        </div>
+
+        <!-- Rating Filter -->
+        <div class="mb-6">
+          <p class="font-semibold mb-2">Rating</p>
+          <div class="space-y-1">
+            <label class="rating-option">
+              <input type="radio" name="rating" value="0" class="rating-filter" checked>
+              <span class="rating-label">All Ratings</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="5" class="rating-filter">
+              <span class="rating-stars">⭐⭐⭐⭐⭐</span>
+              <span class="rating-label">5 Stars</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="4" class="rating-filter">
+              <span class="rating-stars">⭐⭐⭐⭐</span>
+              <span class="rating-label">4 Stars & Up</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="3" class="rating-filter">
+              <span class="rating-stars">⭐⭐⭐</span>
+              <span class="rating-label">3 Stars & Up</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="2" class="rating-filter">
+              <span class="rating-stars">⭐⭐</span>
+              <span class="rating-label">2 Stars & Up</span>
+            </label>
+            <label class="rating-option">
+              <input type="radio" name="rating" value="1" class="rating-filter">
+              <span class="rating-stars">⭐</span>
+              <span class="rating-label">1 Star & Up</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Segment Filter -->
+        <div class="mb-6">
+          <p class="font-semibold mb-2">Segment</p>
+          <label class="block"><input type="checkbox" class="segment mr-2" value="SUV">SUV</label>
+          <label class="block"><input type="checkbox" class="segment mr-2" value="Mini">Mini</label>
+          <label class="block"><input type="checkbox" class="segment mr-2" value="Mini Van">Mini Van</label>
+          <label class="block"><input type="checkbox" class="segment mr-2" value="Hatchback">Hatchback</label>
+          <label class="block"><input type="checkbox" class="segment mr-2" value="MUV">MUV</label>
+          <label class="block"><input type="checkbox" class="segment mr-2" value="Sedan">Sedan</label>
+        </div>
+
+        <!-- Transmission Filter -->
+        <div class="mb-6">
+          <p class="font-semibold mb-2">Transmission</p>
+          <label class="block"><input type="checkbox" class="transmission mr-2" value="Automatic">Automatic</label>
+          <label class="block"><input type="checkbox" class="transmission mr-2" value="Manual">Manual</label>
+        </div>
+
+        <!-- Fuel Type Filter -->
+        <div class="mb-6">
+          <p class="font-semibold mb-2">Fuel Type</p>
+          <label class="block"><input type="checkbox" class="fuel mr-2" value="Petrol">Petrol</label>
+          <label class="block"><input type="checkbox" class="fuel mr-2" value="Diesel">Diesel</label>
+        </div>
+      </aside>
+
+      <!-- Car Listings -->
+      <main id="car-listings" class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Cards will be injected here by JavaScript -->
+      </main>
+    </div>
+  </div>
+
+  <script>
+const cars = [
+  { 
+    name: "Mahindra Scorpio", 
+    segment: "SUV", 
+    seater: "7", 
+    rating: 5.0, 
+    image: "assets/Car1.jpg", 
+    price: 3500, 
+    transmission: "Manual", 
+    fuel: "Diesel", 
+    baggage: 3, 
+    distance: "1.6 km away", 
+    fastag: true 
+  },
+  { 
+    name: "Maruti Swift", 
+    segment: "Mini", 
+    seater: "5", 
+    rating: 4.8, 
+    image: "assets/Car3.jpeg", 
+    price: 1500, 
+    transmission: "Manual", 
+    fuel: "Petrol", 
+    baggage: 2, 
+    distance: "2.1 km away", 
+    fastag: false 
+  },
+  { 
+    name: "Tata Winger", 
+    segment: "Mini Van", 
+    seater: "9", 
+    rating: 4.2, 
+    image: "assets/Car6.jpg", 
+    price: 5500, 
+    transmission: "Manual", 
+    fuel: "Diesel", 
+    baggage: 4, 
+    distance: "3.5 km away", 
+    fastag: true 
+  },
+  { 
+    name: "Hyundai i20", 
+    segment: "Hatchback", 
+    seater: "5", 
+    rating: 4.7, 
+    image: "assets/Car7.jpg", 
+    price: 2000, 
+    transmission: "Automatic", 
+    fuel: "Petrol", 
+    baggage: 2, 
+    distance: "0.8 km away", 
+    fastag: true 
+  },
+  { 
+    name: "Toyota Innova", 
+    segment: "MUV", 
+    seater: "7", 
+    rating: 5.0, 
+    image: "assets/Car10.jpg", 
+    price: 5000, 
+    transmission: "Manual", 
+    fuel: "Diesel", 
+    baggage: 3, 
+    distance: "1.2 km away", 
+    fastag: false 
+  },
+  { 
+    name: "Skoda Octavia", 
+    segment: "Sedan", 
+    seater: "5", 
+    rating: 4.6, 
+    image: "assets/Car11.jpg", 
+    price: 3500, 
+    transmission: "Automatic", 
+    fuel: "Petrol", 
+    baggage: 2, 
+    distance: "2.7 km away", 
+    fastag: true 
+  }
+];
+
+// Default filter values (show all)
+let minPrice = 1000;
+let maxPrice = 10000;
+let minRating = 0;
+let selectedSegments = [];
+let selectedTransmissions = [];
+let selectedFuels = [];
+
+function resetAllFilters() {
+  // Reset price range
+  minPrice = 1000;
+  maxPrice = 10000;
+  document.getElementById("minPriceSlider").value = 1000;
+  document.getElementById("maxPriceSlider").value = 10000;
+  updatePriceDisplay();
+
+  // Reset rating
+  minRating = 0;
+  document.querySelector("input[name='rating'][value='0']").checked = true;
+
+  // Reset segments
+  selectedSegments = [];
+  document.querySelectorAll(".segment").forEach(checkbox => {
+    checkbox.checked = false;
+  });
+
+  // Reset transmissions
+  selectedTransmissions = [];
+  document.querySelectorAll(".transmission").forEach(checkbox => {
+    checkbox.checked = false;
+  });
+
+  // Reset fuel types
+  selectedFuels = [];
+  document.querySelectorAll(".fuel").forEach(checkbox => {
+    checkbox.checked = false;
+  });
+
+  // Re-render cars
+  renderCars();
+}
+
+function updatePriceDisplay() {
+  document.getElementById("currentMinPrice").textContent = minPrice;
+  document.getElementById("currentMaxPrice").textContent = maxPrice;
+}
+
+function setupPriceSliders() {
+  const minSlider = document.getElementById("minPriceSlider");
+  const maxSlider = document.getElementById("maxPriceSlider");
+
+  minSlider.addEventListener("input", function() {
+    minPrice = parseInt(this.value);
+    if (minPrice > maxPrice) {
+      maxPrice = minPrice;
+      maxSlider.value = minPrice;
+    }
+    updatePriceDisplay();
+    renderCars();
+  });
+
+  maxSlider.addEventListener("input", function() {
+    maxPrice = parseInt(this.value);
+    if (maxPrice < minPrice) {
+      minPrice = maxPrice;
+      minSlider.value = maxPrice;
+    }
+    updatePriceDisplay();
+    renderCars();
+  });
+}
+
+function setupRatingFilter() {
+  const ratingInputs = document.querySelectorAll(".rating-filter");
+  ratingInputs.forEach(input => {
+    input.addEventListener("change", function() {
+      minRating = parseInt(this.value);
+      renderCars();
+    });
+  });
+}
+
+function setupSegmentFilters() {
+  const segmentCheckboxes = document.querySelectorAll(".segment");
+  segmentCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function() {
+      selectedSegments = Array.from(document.querySelectorAll(".segment:checked")).map(cb => cb.value);
+      renderCars();
+    });
+  });
+}
+
+function setupTransmissionFilters() {
+  const transmissionCheckboxes = document.querySelectorAll(".transmission");
+  transmissionCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function() {
+      selectedTransmissions = Array.from(document.querySelectorAll(".transmission:checked")).map(cb => cb.value);
+      renderCars();
+    });
+  });
+}
+
+function setupFuelFilters() {
+  const fuelCheckboxes = document.querySelectorAll(".fuel");
+  fuelCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener("change", function() {
+      selectedFuels = Array.from(document.querySelectorAll(".fuel:checked")).map(cb => cb.value);
+      renderCars();
+    });
+  });
+}
+
+function setupClearFiltersButton() {
+  document.getElementById("clear-filters").addEventListener("click", function(e) {
+    e.preventDefault();
+    resetAllFilters();
+  });
+}
+
+function filterCars() {
+  return cars.filter(car => {
+    // Price filter
+    if (car.price < minPrice || car.price > maxPrice) return false;
+
+    // Rating filter
+    if (minRating > 0 && car.rating < minRating) return false;
+
+    // Segment filter - show all if none selected
+    if (selectedSegments.length > 0 && !selectedSegments.includes(car.segment)) return false;
+
+    // Transmission filter - show all if none selected
+    if (selectedTransmissions.length > 0 && !selectedTransmissions.includes(car.transmission)) return false;
+
+    // Fuel filter - show all if none selected
+    if (selectedFuels.length > 0 && !selectedFuels.includes(car.fuel)) return false;
+
+    return true;
+  });
+}
+function createCard(car) {
+  // Create URL-friendly filename
+const pageMap = {
+  "Mahindra Scorpio": "CarPages/MahindraScorpio.html",
+  "Maruti Swift": "CarPages/MarutiSwift.html",
+  "Tata Winger": "CarPages/tatawinger.html",
+  "Hyundai i20": "CarPages/HyundaiI20.html",
+  "Toyota Innova": "CarPages/ToyotaInnova.html",
+  "Skoda Octavia": "CarPages/skodaOctavia.html"
+};
+const carPageName = pageMap[car.name] || "not-found.html";  // fallback if car not mapped
+
+  
+  // Create URL with all parameters
+  const params = new URLSearchParams();
+  params.set('name', car.name);
+  params.set('image', car.image);
+  params.set('segment', car.segment);
+  params.set('transmission', car.transmission);
+  params.set('fuel', car.fuel);
+  params.set('baggage', car.baggage);
+  params.set('seater', car.seater);
+  params.set('price', car.price);
+  params.set('distance', car.distance);
+  params.set('rating', car.rating);
+  
+  // Get pickup and return dates from the form
+  const pickupDate = document.getElementById('pickup-date').value;
+  const returnDate = document.getElementById('return-date').value;
+  const location = document.getElementById('location').value;
+  
+  if (pickupDate) params.set('pickup', pickupDate);
+  if (returnDate) params.set('return', returnDate);
+  if (location) params.set('location', location);
+  
+  return `
+    <div class="bg-white text-gray-800 p-5 rounded-2xl shadow-2xl space-y-4 hover:shadow-3xl transition-all duration-300">
+      <img src="${car.image}" alt="${car.name}" class="rounded-xl w-full h-48 object-cover shadow-md">
+      <div class="flex items-center">
+        <span class="text-yellow-500 font-bold">${car.rating} ★</span>
+        <span class="text-gray-500 text-sm ml-1">| 21 reviews</span>
+      </div>
+      <div>
+        <h3 class="text-xl font-bold">${car.name}</h3>
+        <p class="text-gray-600 text-sm">${car.transmission} · ${car.fuel} · ${car.seater} Seats</p>
+      </div>
+      <div class="flex items-center">
+        <span class="text-2xl font-bold">₹${car.price}</span>
+        <span class="text-gray-500 text-sm ml-2">per day</span>
+      </div>
+      <div class="text-gray-600 text-sm">
+        <span>📍 ${car.distance}</span>
+      </div>
+      ${car.fastag ? '<div class="text-green-600 text-sm font-semibold">ACTIVE FASTAG</div>' : ''}
+      <a href="${carPageName}?${params.toString()}" class="block mt-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold py-2 rounded-lg text-center hover:opacity-90 transition">
+        Book Now
+      </a>
+    </div>
+  `;
+}
+    function renderCars() {
+      const filteredCars = filterCars();
+      const listings = document.getElementById("car-listings");
+      listings.innerHTML = filteredCars.map(createCard).join('');
+    }
+
+    // Populate location, pickup, and return from URL params if present
+    function populateSearchFieldsFromURL() {
+      const params = new URLSearchParams(window.location.search);
+      const location = params.get('location');
+      const pickup = params.get('pickup');
+      const ret = params.get('return');
+      if (location) document.getElementById('location').value = location;
+      if (pickup) document.getElementById('pickup-date').value = pickup;
+      if (ret) document.getElementById('return-date').value = ret;
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      // Initialize with all filters unticked
+      resetAllFilters();
+
+      // Populate search fields from URL
+      populateSearchFieldsFromURL();
+
+      setupPriceSliders();
+      setupRatingFilter();
+      setupSegmentFilters();
+      setupTransmissionFilters();
+      setupFuelFilters();
+      setupClearFiltersButton();
+      updatePriceDisplay();
+      renderCars();
+    });
+  </script>
+  <script>
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('This is a static demo. No real login.');
+  // Optionally redirect to Dashboard.html
+  window.location.href = 'Dashboard.html';
+});
+</script>
+</body>
+</html>

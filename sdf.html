@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rentora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1); /* Sky to Galaxy gradient */
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 font-sans text-white">
+  <div class="max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-center text-white mb-6">👋 Hello, Welcome to Rentora</h1>
+    <div class="flex flex-col lg:flex-row gap-6">
+      
+      <!-- Sidebar Filter -->
+      <aside class="w-full lg:w-1/4 bg-gradient-to-b from-indigo-700 to-purple-800 p-5 rounded-xl shadow-lg">
+        <h2 class="text-xl font-bold mb-4 text-white">🔍 Filter</h2>
+
+        <div class="mb-6">
+          <p class="font-semibold mb-2">Segment</p>
+          <label class="block"><input type="checkbox" class="mr-2 segment" value="SUV">SUV</label>
+          <label class="block"><input type="checkbox" class="mr-2 segment" value="Mini">Mini</label>
+          <label class="block"><input type="checkbox" class="mr-2 segment" value="Mini Van">Mini Van</label>
+          <label class="block"><input type="checkbox" class="mr-2 segment" value="Hatchback">Hatchback</label>
+          <label class="block"><input type="checkbox" class="mr-2 segment" value="MUV">MUV</label>
+          <label class="block"><input type="checkbox" class="mr-2 segment" value="Sedan">Sedan</label>
+        </div>
+
+        <div class="mb-6">
+          <p class="font-semibold mb-2">Seater</p>
+          <label class="block"><input type="checkbox" class="mr-2 seater" value="4">4 Seater</label>
+          <label class="block"><input type="checkbox" class="mr-2 seater" value="5">5 Seater</label>
+          <label class="block"><input type="checkbox" class="mr-2 seater" value="7">7 Seater</label>
+          <label class="block"><input type="checkbox" class="mr-2 seater" value="9">9+ Seater</label>
+        </div>
+
+        <div>
+          <p class="font-semibold mb-2">Rating</p>
+          <label class="block"><input type="checkbox" class="mr-2 rating" value="5">⭐⭐⭐⭐⭐</label>
+          <label class="block"><input type="checkbox" class="mr-2 rating" value="4">⭐⭐⭐⭐</label>
+          <label class="block"><input type="checkbox" class="mr-2 rating" value="3">⭐⭐⭐</label>
+        </div>
+      </aside>
+
+      <!-- Car Listings -->
+      <main id="car-listings" class="w-full lg:w-3/4 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Car cards will be injected here by JavaScript -->
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const cars = [
+      { name: "Mahindra Scorpio", segment: "SUV", seater: "7", rating: 4, image: "Image_Cars/Car1.jpg", price: [2199, 2599, 3199], transmission: "Manual", fuel: "Diesel", baggage: 3 },
+      { name: "Maruti Swift", segment: "Mini", seater: "5", rating: 5, image: "Image_Cars/Car3.jpeg", price: [1199, 1599, 2299], transmission: "Manual", fuel: "Petrol", baggage: 2 },
+      { name: "Tata Winger", segment: "Mini Van", seater: "9", rating: 3, image: "Image_Cars/Car6.jpg", price: [2499, 2999, 3499], transmission: "Manual", fuel: "Diesel", baggage: 4 },
+      { name: "Hyundai i20", segment: "Hatchback", seater: "5", rating: 4, image: "Image_Cars/Car7.jpg", price: [1499, 1899, 2499], transmission: "Automatic", fuel: "Petrol", baggage: 2 },
+      { name: "Toyota Innova", segment: "MUV", seater: "7", rating: 5, image: "Image_Cars/Car10.jpg", price: [1999, 2399, 2999], transmission: "Manual", fuel: "Diesel", baggage: 3 },
+      { name: "Skoda Octavia", segment: "Sedan", seater: "5", rating: 5, image: "Image_Cars/Car11.jpg", price: [1899, 2299, 2999], transmission: "Automatic", fuel: "Petrol", baggage: 2 }
+    ];
+
+    function createCard(car) {
+      return `
+        <div class="bg-gradient-to-b from-blue-100 to-indigo-200 text-gray-800 p-5 rounded-xl shadow-xl space-y-4">
+          <img src="${car.image}" class="rounded w-full shadow">
+          <h3 class="text-2xl font-bold text-indigo-900">${car.name}</h3>
+          <p class="text-sm text-gray-600">${car.segment}</p>
+          <div class="flex gap-2 text-sm">
+            <div class="bg-white p-2 rounded text-center flex-1">120km/day<br><strong>₹${car.price[0]}</strong></div>
+            <div class="bg-white p-2 rounded text-center flex-1">300km/day<br><strong>₹${car.price[1]}</strong></div>
+            <div class="bg-white p-2 rounded text-center flex-1">Unlimited<br><strong>₹${car.price[2]}</strong></div>
+          </div>
+          <ul class="text-sm list-disc list-inside text-gray-700">
+            <li>${car.transmission}</li><li>${car.fuel}</li><li>${car.baggage} Baggage</li><li>${car.seater} Seater</li>
+          </ul>
+          <button class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white w-full py-2 rounded-lg hover:opacity-90 transition">🚗 Book Now</button>
+        </div>
+      `;
+    }
+
+    function renderCars() {
+      const selectedSegment = Array.from(document.querySelectorAll('.segment:checked')).map(e => e.value);
+      const selectedSeater = Array.from(document.querySelectorAll('.seater:checked')).map(e => e.value);
+      const selectedRating = Array.from(document.querySelectorAll('.rating:checked')).map(e => parseInt(e.value));
+
+      const filteredCars = cars.filter(car => {
+        const segmentMatch = selectedSegment.length === 0 || selectedSegment.includes(car.segment);
+        const seaterMatch = selectedSeater.length === 0 || selectedSeater.includes(car.seater);
+        const ratingMatch = selectedRating.length === 0 || selectedRating.includes(car.rating);
+        return segmentMatch && seaterMatch && ratingMatch;
+      });
+
+      const listings = document.getElementById("car-listings");
+      listings.innerHTML = filteredCars.map(createCard).join('');
+    }
+
+    document.querySelectorAll(".segment, .seater, .rating").forEach(cb => {
+      cb.addEventListener("change", renderCars);
+    });
+
+    renderCars();
+  </script>
+</body>
+</html>

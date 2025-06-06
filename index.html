@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rental | Rentora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1); /* Sky to Galaxy gradient */
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans text-white">
+
+  <!-- Navbar -->
+  <nav class="bg-gradient-to-r from-indigo-800 to-purple-700 shadow-lg py-4 px-6">
+    <div class="flex justify-between items-center max-w-7xl mx-auto">
+      <!-- Logo + Brand -->
+      <div class="flex items-center space-x-3">
+        <img src="assets/Rentora logo.png" alt="Rentora Logo" class="h-10 w-10 rounded-full shadow mr-2" />
+        <h2 class="text-2xl font-bold text-white">Rentora</h2>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="flex space-x-4">
+        <a href="loginpage.html" class="bg-white text-indigo-900 px-5 py-2 rounded font-semibold shadow-md hover:bg-indigo-100 transition">
+          Log in
+        </a>
+        <a href="Signup.html" class="bg-white text-indigo-900 px-5 py-2 rounded font-semibold shadow-md hover:bg-indigo-100 transition">
+          Sign up
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-6 py-10">
+    <div class="flex flex-col lg:flex-row items-center gap-10 bg-gradient-to-b from-indigo-700 to-purple-800 p-8 rounded-xl shadow-2xl">
+
+      <!-- Image Section -->
+      <div class="w-full lg:w-1/2">
+        <img src="assets/travelling_car_blue.jpg" alt="Traveling Car" class="rounded-xl w-full shadow-lg" />
+      </div>
+
+      <!-- In index.html, update the form section -->
+<div class="w-full lg:w-1/2 space-y-6">
+  <h3 class="text-2xl font-bold text-white mb-4">Plan Your Trip</h3>
+  <form action="Dashboard.html" method="GET" class="space-y-5" id="searchForm">
+    <div>
+      <label for="location" class="block font-semibold mb-1">Location</label>
+      <input type="text" id="location" name="location" placeholder="Enter your location"
+        class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+    </div>
+
+    <div>
+      <label for="pickup" class="block font-semibold mb-1">Pickup</label>
+      <input type="datetime-local" id="pickup" name="pickup" 
+        class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+    </div>
+
+    <div>
+      <label for="return" class="block font-semibold mb-1">Return</label>
+      <input type="datetime-local" id="return" name="return"
+        class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+    </div>
+
+    <button type="submit"
+      class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
+      🔍 Search Rentals
+    </button>
+  </form>
+</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+  const pickupInput = document.getElementById('pickup');
+  const returnInput = document.getElementById('return');
+
+  function setMinReturn() {
+    if (pickupInput.value) {
+      const pickupDate = new Date(pickupInput.value);
+      // Add 24 hours (in ms)
+      const minReturnDate = new Date(pickupDate.getTime() + 24 * 60 * 60 * 1000);
+      // Format to 'YYYY-MM-DDTHH:MM'
+      const pad = n => n.toString().padStart(2, '0');
+      const formatted = `${minReturnDate.getFullYear()}-${pad(minReturnDate.getMonth()+1)}-${pad(minReturnDate.getDate())}T${pad(minReturnDate.getHours())}:${pad(minReturnDate.getMinutes())}`;
+      returnInput.min = formatted;
+      if (returnInput.value < formatted) {
+        returnInput.value = formatted;
+      }
+    } else {
+      returnInput.min = "";
+    }
+  }
+
+  pickupInput.addEventListener('change', setMinReturn);
+
+  document.getElementById('searchForm').addEventListener('submit', function(e) {
+    const pickup = pickupInput.value;
+    const ret = returnInput.value;
+    if (pickup && ret) {
+      const pickupDate = new Date(pickup);
+      const returnDate = new Date(ret);
+      const diffMs = returnDate - pickupDate;
+      if (diffMs < 24 * 60 * 60 * 1000) {
+        alert('Return date/time must be at least 24 hours after pickup date/time.');
+        e.preventDefault();
+      }
+    }
+  });
+
+  // Initialize min on page load if pickup already has a value
+  setMinReturn();
+
+  // Set pickup min to now (no past bookings)
+  const now = new Date();
+  const pad = n => n.toString().padStart(2, '0');
+  const formattedNow = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}T${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  pickupInput.min = formattedNow;
+</script>
+</body>
+</html>

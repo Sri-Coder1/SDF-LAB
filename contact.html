@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - Rentora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1);
+    }
+    .chat-box {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans text-white p-6 relative">
+  <div class="max-w-5xl mx-auto space-y-8">
+
+    <!-- Header -->
+    <div class="flex items-center space-x-4">
+      <img src="assets/Rentora logo.png" alt="Rentora Logo" class="h-12 w-12 rounded-full shadow-lg" />
+      <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-800 to-purple-700 bg-clip-text text-transparent">
+        Contact Rentora
+      </h1>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="bg-gradient-to-br from-indigo-700 to-purple-800 p-6 rounded-2xl shadow-2xl space-y-4">
+      <h2 class="text-2xl font-semibold text-yellow-300">Get in Touch</h2>
+      <p class="text-lg">📧 Email: <a href="mailto:srivatsankith.toopurani@gmail.com" class="underline text-blue-200">srivatsankith.toopurani@gmail.com</a></p>
+      <p class="text-lg">📞 Phone: <a href="tel:+919110883758" class="underline text-blue-200">+91 91108 83758</a></p>
+    </div>
+  </div>
+
+  <!-- Floating Chat Button -->
+  <button id="chat-toggle" class="fixed bottom-6 right-6 bg-gradient-to-r from-indigo-700 to-purple-600 p-4 rounded-full shadow-lg hover:scale-105 transition">
+    <!-- Message icon -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h6m-6 4h10m2 4l-2-2H7a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v12z" />
+    </svg>
+  </button>
+
+  <!-- Chat Popup -->
+  <div id="chat-popup" class="hidden fixed bottom-20 right-6 w-80 bg-gradient-to-br from-indigo-700 to-purple-800 text-white p-4 rounded-2xl shadow-2xl space-y-3 z-50">
+    <h2 class="text-lg font-bold">AI Chat Assistant</h2>
+    <div id="chat-box" class="chat-box space-y-2 text-sm overflow-y-auto pr-2">
+      <div class="bg-indigo-600 p-2 rounded-md w-fit max-w-xs">Hi there! 👋 How can I assist you today?</div>
+    </div>
+    <form id="chat-form" class="flex space-x-2">
+      <input type="text" id="user-input" class="flex-grow px-3 py-2 rounded-lg text-gray-800" placeholder="Type a message..." />
+      <button type="submit" class="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-lg text-white">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const chatToggle = document.getElementById("chat-toggle");
+    const chatPopup = document.getElementById("chat-popup");
+    const chatBox = document.getElementById("chat-box");
+    const chatForm = document.getElementById("chat-form");
+    const userInput = document.getElementById("user-input");
+
+    chatToggle.addEventListener("click", () => {
+      chatPopup.classList.toggle("hidden");
+    });
+
+    chatForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const message = userInput.value.trim();
+      if (message === "") return;
+
+      addMessage(message, "user");
+      userInput.value = "";
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      // Simulate AI response with delay
+      setTimeout(() => {
+        const reply = generateAIReply(message);
+        addMessage(reply, "ai");
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 800);
+    });
+
+    function addMessage(text, sender) {
+      const msg = document.createElement("div");
+      msg.className = sender === "user"
+        ? "bg-purple-400 text-white p-2 rounded-md w-fit max-w-xs self-end ml-auto"
+        : "bg-indigo-600 p-2 rounded-md w-fit max-w-xs";
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+    }
+
+    function generateAIReply(msg) {
+      const lower = msg.toLowerCase();
+      if (lower.includes("thank")) 
+        return "You're most welcome! 😊 Let me know if there's anything else I can assist you with.";
+      if (lower.includes("price") || lower.includes("cost"))
+        return "Our car rentals start at ₹1500/day. You can filter by price on the dashboard.";
+      if (lower.includes("available") || lower.includes("car") || lower.includes("vehicle"))
+        return "We have a wide range of cars available including hatchbacks, SUVs, sedans, and vans.";
+      if (lower.includes("book") || lower.includes("booking"))
+        return "Please enter your location, pickup date, and return date to proceed with booking.";
+      if (lower.includes("location"))
+        return "Kindly enter your pickup and return location details in the search bar.";
+      if (lower.includes("contact") || lower.includes("support"))
+        return "You can reach our team at srivatsankith.toopurani@gmail.com or call +91 91108 83758.";
+      return "I'm here to help with bookings, availability, pricing, and support. Let me know what you need!";
+    }
+  </script>
+</body>
+</html>

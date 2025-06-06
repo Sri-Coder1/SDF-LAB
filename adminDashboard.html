@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Rentora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1); /* Sky to Galaxy gradient */
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 font-sans text-white">
+  <div class="max-w-7xl mx-auto">
+    <header class="mb-8">
+      <h1 class="text-3xl font-bold text-center text-white"> Admin Dashboard - Rentora</h1>
+    </header>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+      <!-- Total Bookings -->
+      <div class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow">
+        <h2 class="text-xl font-semibold mb-2">Total Bookings</h2>
+        <p class="text-3xl font-bold">245</p>
+      </div>
+
+      <!-- Cars in Fleet -->
+      <div class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow">
+        <h2 class="text-xl font-semibold mb-2">Cars in Fleet</h2>
+        <p class="text-3xl font-bold">42</p>
+      </div>
+
+      <!-- Active Users -->
+      <div class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow">
+        <h2 class="text-xl font-semibold mb-2">Active Users</h2>
+        <p class="text-3xl font-bold">89</p>
+      </div>
+
+      <!-- Monthly Revenue -->
+      <div class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow">
+        <h2 class="text-xl font-semibold mb-2">Monthly Revenue</h2>
+        <p class="text-3xl font-bold">₹1,24,500</p>
+      </div>
+    </section>
+
+    <!-- Inventory Management -->
+    <section class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow mb-10">
+      <h2 class="text-2xl font-semibold mb-4">📦 Inventory Management</h2>
+      <table class="w-full text-left table-auto">
+        <thead>
+          <tr class="border-b border-white">
+            <th class="pb-2">Car Name</th>
+            <th class="pb-2">Segment</th>
+            <th class="pb-2">Availability</th>
+            <th class="pb-2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="py-2">Mahindra Scorpio</td>
+            <td class="py-2">SUV</td>
+            <td class="py-2">Available</td>
+            <td class="py-2">
+              <button class="bg-green-500 text-white px-3 py-1 rounded">✔ Available</button>
+              <button class="bg-red-500 text-white px-3 py-1 rounded ml-2">✖ Unavailable</button>
+            </td>
+          </tr>
+          <tr>
+            <td class="py-2">Maruti Swift</td>
+            <td class="py-2">Mini</td>
+            <td class="py-2">Unavailable</td>
+            <td class="py-2">
+              <button class="bg-green-500 text-white px-3 py-1 rounded">✔ Available</button>
+              <button class="bg-red-500 text-white px-3 py-1 rounded ml-2">✖ Unavailable</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Add New Car -->
+    <section class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow mb-10">
+      <h2 class="text-2xl font-semibold mb-4">➕ Add New Car</h2>
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input type="text" class="p-2 rounded text-black" placeholder="Car Name" />
+        <select class="p-2 rounded text-black">
+          <option>SUV</option>
+          <option>Mini</option>
+          <option>Mini Van</option>
+          <option>Hatchback</option>
+          <option>MUV</option>
+          <option>Sedan</option>
+        </select>
+        <input type="number" class="p-2 rounded text-black" placeholder="Price per Day (₹)" />
+        <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Add Car</button>
+      </form>
+    </section>
+
+    <!-- Customer Verification -->
+    <section class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow mb-10">
+      <h2 class="text-2xl font-semibold mb-4">👤 Customer Details Verification</h2>
+      <table class="w-full text-left table-auto">
+        <thead>
+          <tr class="border-b border-white">
+            <th class="pb-2">Customer Name</th>
+            <th class="pb-2">Phone</th>
+            <th class="pb-2">License No</th>
+            <th class="pb-2">Aadhar No</th>
+            <th class="pb-2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="py-2">Raj Verma</td>
+            <td class="py-2">+91 9876543210</td>
+            <td class="py-2">DLX123456789</td>
+            <td class="py-2">1234-5678-9012</td>
+            <td class="py-2">
+              <button class="bg-green-500 text-white px-3 py-1 rounded">✔ Verify</button>
+              <button class="bg-red-500 text-white px-3 py-1 rounded ml-2">✖ Reject</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Admin Tools -->
+    <section class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow">
+      <h2 class="text-2xl font-semibold mb-4">🛠️ Admin Tools</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-center block">📁 View Reports</a>
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-center block">🔔 Send Notifications</a>
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-center block">🔧 System Settings</a>
+        <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded text-center block">📝 Manage Feedback</a>
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>

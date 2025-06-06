@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Gateway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to right, #c0e0ff, #a18cd1);
+        }
+        /* Custom styles for active payment method button */
+        .payment-method-button.active {
+            background-color: #4f46e5; /* Indigo 600 */
+            color: white;
+            box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.4);
+        }
+        /* Hide payment sections by default */
+        .payment-section {
+            display: none;
+        }
+        /* Style for input focus */
+        input:focus {
+            outline: none;
+            border-color: #6366f1; /* Indigo 500 */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+        }
+        .price-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #d1d5db;
+            outline: none;
+        }
+        .price-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+        }
+        .price-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #4f46e5;
+            cursor: pointer;
+        }
+    </style>
+    
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-2xl">
+        <div class="flex items-center space-x-3 mb-6 justify-center">
+            <img src="assets/Rentora logo.png" alt="Rentora Logo" class="h-10 w-10 rounded-full shadow" />
+            <span class="text-2xl font-bold text-gray-800">Rentora</span>
+        </div>
+
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">Complete Your Payment</h1>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-8 justify-center">
+            <button id="card-btn" class="payment-method-button active flex-1 py-3 px-6 rounded-lg text-lg font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                Pay via Card
+            </button>
+            <button id="upi-btn" class="payment-method-button flex-1 py-3 px-6 rounded-lg text-lg font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                Pay via UPI
+            </button>
+            <button id="cash-btn" class="payment-method-button flex-1 py-3 px-6 rounded-lg text-lg font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50">
+                Cash on Delivery
+            </button>
+        </div>
+
+        <div id="payment-sections">
+            <div id="card-section" class="payment-section active-section block">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Card Details</h2>
+                <form id="card-form" class="space-y-6">
+                    <div>
+                        <label for="card-number" class="block text-sm font-medium text-gray-700 mb-1">Card Number</label>
+                        <input type="text" id="card-number" name="card-number" placeholder="XXXX XXXX XXXX XXXX" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="expiry-date" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date (MM/YY)</label>
+                            <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                        </div>
+                        <div>
+                            <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV</label>
+                            <input type="text" id="cvv" name="cvv" placeholder="XXX" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="card-holder-name" class="block text-sm font-medium text-gray-700 mb-1">Card Holder Name</label>
+                        <input type="text" id="card-holder-name" name="card-holder-name" placeholder="John Doe" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                    </div>
+                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Pay Now
+                    </button>
+                </form>
+            </div>
+
+            <div id="upi-section" class="payment-section">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">UPI Payment</h2>
+                <form id="upi-form" class="space-y-6">
+                    <div>
+                        <label for="upi-id" class="block text-sm font-medium text-gray-700 mb-1">Enter UPI ID</label>
+                        <input type="text" id="upi-id" name="upi-id" placeholder="yourname@bankupi" class="mt-1 block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" required>
+                    </div>
+                    <p class="text-sm text-gray-600 text-center">
+                        After clicking "Pay Now", you will receive a payment request on your UPI app.
+                    </p>
+                    <button type="submit" class="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Pay Now
+                    </button>
+                </form>
+            </div>
+
+            <div id="cash-section" class="payment-section">
+                <h2 class="text-2xl font-semibold text-gray-700 mb-6 text-center">Cash on Delivery</h2>
+                <div class="text-center p-6 bg-gray-50 rounded-lg border border-gray-200">
+                    <p class="text-lg text-gray-800 mb-4">
+                        You have selected Cash on Delivery.
+                    </p>
+                    <p class="text-gray-600 mb-6">
+                        Please have the exact amount ready when your order is delivered.
+                    </p>
+                    <button type="button" id="confirm-cash-btn" class="w-full py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-md transition duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                        Confirm Order
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="message-box" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center">
+                <p id="message-text" class="text-lg font-medium text-gray-800 mb-4"></p>
+                <button id="message-box-close" class="py-2 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    OK
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to buttons and sections
+        const cardBtn = document.getElementById('card-btn');
+        const upiBtn = document.getElementById('upi-btn');
+        const cashBtn = document.getElementById('cash-btn');
+
+        const cardSection = document.getElementById('card-section');
+        const upiSection = document.getElementById('upi-section');
+        const cashSection = document.getElementById('cash-section');
+
+        const paymentMethodButtons = document.querySelectorAll('.payment-method-button');
+        const paymentSections = document.querySelectorAll('.payment-section');
+
+        const cardForm = document.getElementById('card-form');
+        const upiForm = document.getElementById('upi-form');
+        const confirmCashBtn = document.getElementById('confirm-cash-btn');
+
+        const messageBox = document.getElementById('message-box');
+        const messageText = document.getElementById('message-text');
+        const messageBoxClose = document.getElementById('message-box-close');
+
+        /**
+         * Displays a custom message box.
+         * @param {string} message - The message to display.
+         */
+        function showMessageBox(message) {
+            messageText.textContent = message;
+            messageBox.classList.remove('hidden');
+        }
+
+        // Event listener for closing the message box
+        messageBoxClose.addEventListener('click', () => {
+            messageBox.classList.add('hidden');
+        });
+
+        /**
+         * Hides all payment sections and removes active class from all buttons.
+         */
+        function hideAllSections() {
+            paymentSections.forEach(section => {
+                section.classList.remove('active-section', 'block');
+                section.classList.add('hidden'); // Ensure it's hidden
+            });
+            paymentMethodButtons.forEach(button => {
+                button.classList.remove('active');
+                // Reset button styles to default
+                button.classList.remove('bg-indigo-600', 'text-white');
+                button.classList.add('bg-gray-100', 'text-gray-700');
+            });
+        }
+
+        /**
+         * Shows a specific payment section and sets the corresponding button as active.
+         * @param {HTMLElement} sectionToShow - The payment section to display.
+         * @param {HTMLElement} buttonToActivate - The button to set as active.
+         */
+        function showSection(sectionToShow, buttonToActivate) {
+            hideAllSections();
+            sectionToShow.classList.remove('hidden');
+            sectionToShow.classList.add('active-section', 'block'); // Make it block for display
+            buttonToActivate.classList.add('active');
+            // Set active button styles
+            buttonToActivate.classList.remove('bg-gray-100', 'text-gray-700');
+            buttonToActivate.classList.add('bg-indigo-600', 'text-white');
+        }
+
+        // Event listeners for payment method buttons
+        cardBtn.addEventListener('click', () => showSection(cardSection, cardBtn));
+        upiBtn.addEventListener('click', () => showSection(upiSection, upiBtn));
+        cashBtn.addEventListener('click', () => showSection(cashSection, cashBtn));
+
+        // Handle form submissions (for demonstration purposes)
+        cardForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            // Basic validation example
+            const cardNumber = document.getElementById('card-number').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardHolderName = document.getElementById('card-holder-name').value;
+
+            if (cardNumber.length < 16 || expiryDate.length < 5 || cvv.length < 3 || cardHolderName.trim() === '') {
+                showMessageBox('Please fill in all card details correctly.');
+                return;
+            }
+            showMessageBox('Card payment processed successfully!');
+            cardForm.reset(); // Clear form fields
+        });
+
+        upiForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const upiId = document.getElementById('upi-id').value;
+            if (upiId.trim() === '' || !upiId.includes('@')) {
+                showMessageBox('Please enter a valid UPI ID.');
+                return;
+            }
+            showMessageBox(`Payment request sent to UPI ID: ${upiId}. Please approve in your UPI app.`);
+            upiForm.reset(); // Clear form fields
+        });
+
+        confirmCashBtn.addEventListener('click', () => {
+            showMessageBox('Your order has been confirmed for Cash on Delivery!');
+        });
+
+        // Initialize by showing the card section
+        window.onload = () => {
+            showSection(cardSection, cardBtn);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rentora - Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1); /* Sky to Galaxy gradient */
+    }
+  </style>
+</head>
+<body class="min-h-screen p-6 font-sans text-white">
+  <div class="max-w-5xl mx-auto">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center bg-gradient-to-r from-indigo-800 to-purple-700 p-4 rounded-xl shadow-lg mb-6 text-white">
+      <div class="flex items-center space-x-3">
+        <img src="E:\ankith\SDF_FINAL-main\Rentora logo.png" alt="Rentora Logo" class="h-10 w-10 rounded-full shadow" />
+        <span class="text-2xl font-bold">Rentora</span>
+      </div>
+      <span class="text-lg">User Profile</span>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="bg-gradient-to-b from-indigo-700 to-purple-800 p-6 rounded-xl shadow-xl">
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <!-- Avatar -->
+        <img src="E:\ankith\SDF_FINAL-main\User logo.png" alt="User Avatar" class="w-28 h-28 rounded-full shadow-lg border-4 border-white object-cover" />
+
+        <!-- Details -->
+        <div class="text-white space-y-4">
+          <h2 class="text-2xl font-bold">Guest</h2>
+          <p><span class="font-semibold">📞 Mobile:</span> 9110883758</p>
+          <p><span class="font-semibold">🪪 Document Status:</span> <span class="text-red-400">Not Uploaded</span></p>
+          <p><span class="font-semibold">💳 Credits:</span> ₹0</p>
+          <p><span class="font-semibold">🏆 Z-Points:</span> <span class="italic">Install app to view</span></p>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="mt-6 flex gap-4 flex-wrap">
+        <a href="E:/Ankith/SDF LAB/frontend/Documentverifi.html" class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:opacity-90 transition">
+          Upload Document
+        </a>
+        <button class="bg-white text-indigo-700 px-6 py-2 rounded-lg hover:bg-indigo-100 transition">
+          Edit Profile
+        </button>
+      </div>
+    </div>
+
+    <!-- Booking History Dropdown -->
+    <div class="mt-6 bg-gradient-to-b from-indigo-700 to-purple-800 rounded-xl shadow-xl">
+      <button onclick="toggleBookingHistory()" class="w-full text-left px-6 py-4 text-xl font-semibold text-white hover:bg-indigo-800 rounded-t-xl transition">
+        📖 Booking History
+      </button>
+      <div id="bookingHistoryContent" class="hidden px-6 pb-6 pt-2 text-white">
+        <table class="w-full text-left text-sm border-separate border-spacing-y-2">
+          <thead class="text-indigo-100 font-semibold">
+            <tr>
+              <th>Car</th>
+              <th>Pickup</th>
+              <th>Return</th>
+              <th>Location</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <!-- You can add booking data rows here -->
+        </table>
+      </div>
+    </div>
+
+    <!-- Customer Care Dropdown -->
+    <div class="mt-6 bg-gradient-to-b from-indigo-700 to-purple-800 rounded-xl shadow-xl">
+      <button onclick="toggleCustomerCare()" class="w-full text-left px-6 py-4 text-xl font-semibold text-white hover:bg-indigo-800 rounded-t-xl transition">
+        📞 Customer Care
+      </button>
+      <div id="customerCareContent" class="hidden px-6 pb-6 pt-2 text-white space-y-2">
+        <p><span class="font-semibold">📧 Email:</span> <a href="mailto:srivatsankith.2005@gmail.com" class="underline hover:text-indigo-200">srivatsankith.2005@gmail.com</a></p>
+        <p><span class="font-semibold">📱 Mobile:</span> <a href="tel:9110883758" class="underline hover:text-indigo-200">9110883758</a></p>
+        <p>For any queries or assistance, feel free to reach out to our support team. We’re here to help 24/7!</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- JavaScript for toggles -->
+  <script>
+    function toggleBookingHistory() {
+      const content = document.getElementById("bookingHistoryContent");
+      content.classList.toggle("hidden");
+    }
+
+    function toggleCustomerCare() {
+      const content = document.getElementById("customerCareContent");
+      content.classList.toggle("hidden");
+    }
+  </script>
+</body>
+</html>

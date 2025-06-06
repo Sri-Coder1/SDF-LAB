@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | Rentora</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(to right, #c0e0ff, #a18cd1); /* Sky to Galaxy gradient */
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center font-sans text-white">
+
+  <!-- Signup Box -->
+  <div class="bg-gradient-to-b from-indigo-700 to-purple-800 p-8 rounded-xl shadow-2xl w-full max-w-md">
+    <div class="flex items-center justify-center mb-6">
+      <img src="assets/Rentora logo.png" alt="Rentora Logo" class="h-10 w-10 rounded-full shadow mr-2" />
+      <a href="index.html" class="text-3xl font-bold text-white hover:underline focus:outline-none">Rentora</a>
+    </div>
+    <p class="text-center text-white text-lg mb-6">Join and start your journey</p>
+
+    <form id="signup-form" method="POST" class="space-y-5">
+      <div>
+        <label for="name" class="block font-semibold mb-1">Full Name</label>
+        <input type="text" id="name" required class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div>
+        <label for="email" class="block font-semibold mb-1">Email</label>
+        <input type="email" id="email" required class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div>
+        <label for="mobile" class="block font-semibold mb-1">Mobile Number</label>
+        <input type="tel" id="mobile" pattern="[0-9]{10}" required placeholder="10-digit number" class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div>
+        <label for="password" class="block font-semibold mb-1">Password</label>
+        <input type="password" id="password" required class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <div>
+        <label for="confirm-password" class="block font-semibold mb-1">Confirm Password</label>
+        <input type="password" id="confirm-password" required class="w-full p-3 rounded-lg text-gray-800 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      </div>
+      <input type="submit" value="Create Account" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:opacity-90 transition">
+    </form>
+
+    <p class="mt-6 text-center text-sm text-white">
+      Already have an account?
+      <a href="loginpage.html" class="underline font-semibold hover:text-indigo-200">Log in</a>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('signup-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const mobile = document.getElementById('mobile').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+        return;
+      }
+
+      const response = await fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, mobile, password })
+      });
+
+      if (response.ok) {
+        alert('Signup successful! Please log in.');
+        window.location.href = 'loginpage.html';
+      } else {
+        const msg = await response.text();
+        alert(msg);
+      }
+    });
+  </script>
+</body>
+</html>
